@@ -37,9 +37,10 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   dbt_project:
-    dims:
-      +materialized: table
-    facts:
+    core:
       +materialized: table
     staging:
       +materialized: view
+
+vars:
+  payment_type_values: [1, 2, 3, 4, 5, 6]
