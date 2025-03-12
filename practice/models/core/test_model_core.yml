@@ -1,0 +1,132 @@
+version: 2
+
+models:
+  - name: dim_zones
+    description: >
+      List of unique zones idefied by locationid. 
+      Includes the service zone they correspond to (Green or yellow).
+
+  - name: dm_monthly_zone_revenue
+    description: >
+      Aggregated table of all taxi trips corresponding to both service zones (Green and yellow) per pickup zone, month and service.
+      The table contains monthly sums of the fare elements used to calculate the monthly revenue. 
+      The table contains also monthly indicators like number of trips, and average trip distance. 
+    columns:
+      - name: revenue_monthly_total_amount
+        description: Monthly sum of the the total_amount of the fare charged for the trip per pickup zone, month and service.
+        tests:
+            - not_null:
+                severity: error
+      
+  - name: fact_trips
+    description: >
+        Taxi trips corresponding to both service zones (Green and Yellow).
+        The table contains records where both pickup and dropoff locations are valid and known zones. 
+        Each record corresponds to a trip uniquely identified by tripid.
+    columns:
+      - name: tripid
+        data_type: string
+        description: A unique identifier assigned to each taxi trip.
+
+      - name: vendorid
+        data_type: int64
+        description: Identifier for the taxi service provider. Typically, 1 represents Creative Mobile Technologies (CMT), and 2 represents VeriFone Inc.
+
+      - name: service_type
+        data_type: string
+        description: Indicates whether the trip was a Green or Yellow taxi service.
+
+      - name: ratecodeid
+        data_type: int64
+        description: Rate code applied to the trip, indicating special fare conditions such as airport flat rates or negotiated fares.
+
+      - name: pickup_locationid
+        data_type: int64
+        description: Unique identifier for the pickup location based on the NYC Taxi Zone Lookup Table.
+
+      - name: pickup_borough
+        data_type: string
+        description: The borough where the pickup location is located (e.g., Manhattan, Brooklyn, Queens).
+
+      - name: pickup_zone
+        data_type: string
+        description: The taxi zone where the trip started, based on NYC Taxi Zone Lookup data.
+
+      - name: dropoff_locationid
+        data_type: int64
+        description: Unique identifier for the dropoff location based on the NYC Taxi Zone Lookup Table.
+
+      - name: dropoff_borough
+        data_type: string
+        description: The borough where the dropoff location is located (e.g., Manhattan, Brooklyn, Queens).
+
+      - name: dropoff_zone
+        data_type: string
+        description: The taxi zone where the trip ended, based on NYC Taxi Zone Lookup data.
+
+      - name: pickup_datetime
+        data_type: timestamp
+        description: The date and time when the passenger was picked up.
+
+      - name: dropoff_datetime
+        data_type: timestamp
+        description: The date and time when the passenger was dropped off.
+
+      - name: store_and_fwd_flag
+        data_type: string
+        description: > 
+            Indicates whether the trip record was stored in the vehicles memory before being sent to the server. 'Y' means stored and forwarded, 'N' means sent in real-time.
+
+      - name: passenger_count
+        data_type: int64
+        description: The number of passengers in the taxi trip, as reported by the driver.
+
+      - name: trip_distance
+        data_type: numeric
+        description: The total distance of the trip in miles, as recorded by the taximeter.
+
+      - name: trip_type
+        data_type: int64
+        description: >
+            Indicates the type of trip: 1 for a standard street-hail taxi ride, and 2 for an e-hail (app-based) ride.
+
+      - name: fare_amount
+        data_type: numeric
+        description: The base fare charged for the trip, excluding additional fees and surcharges.
+
+      - name: extra
+        data_type: numeric
+        description: Additional charges that may apply to the trip, such as night-time fees or peak hour surcharges.
+
+      - name: mta_tax
+        data_type: numeric
+        description: A mandatory Metropolitan Transportation Authority (MTA) tax of $0.50 applied to all taxi trips in NYC.
+
+      - name: tip_amount
+        data_type: numeric
+        description: The amount of tip given by the passenger, applicable for credit card transactions.
+
+      - name: tolls_amount
+        data_type: numeric
+        description: The total toll charges incurred during the trip.
+
+      - name: ehail_fee
+        data_type: numeric
+        description: A fee charged for trips booked through e-hailing applications. This value may be null if not applicable.
+
+      - name: improvement_surcharge
+        data_type: numeric
+        description: A fixed surcharge of $0.30 per trip used to support transportation infrastructure improvements in NYC.
+
+      - name: total_amount
+        data_type: numeric
+        description: The final fare paid by the passenger, including all charges, fees, surcharges, and tips.
+
+      - name: payment_type
+        data_type: int64
+        description: >
+            The payment method used for the trip. 1 = Credit card, 2 = Cash, 3 = No charge, 4 = Dispute, 5 = Unknown, 6 = Voided trip.
+
+      - name: payment_type_description
+        data_type: string
+        description: A textual description of the payment method, corresponding to the payment_type field.
