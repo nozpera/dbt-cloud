@@ -61,6 +61,6 @@ Berikut beberapa tabel utama yang dihasilkan:
 
 ---
 
-💡 **Contributors**: _Ryan Permana & Team_
+💡 **Contributors**: _Ryan Permana
 📅 **Last Updated**: _March 2025_
 
