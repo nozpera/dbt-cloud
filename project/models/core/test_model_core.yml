@@ -1,0 +1,129 @@
+version: 2
+
+models:
+  - name: dim_geolocation_sellers
+    description: "Dimensional table containing geolocation data for sellers."
+    columns:
+      - name: seller_id
+        data_type: string
+        description: "Unique identifier for the seller."
+        tests:
+          - not_null
+          - unique
+
+      - name: zip_code_prefix
+        data_type: int64
+        description: "Postal code prefix of the seller's location."
+        tests:
+          - not_null
+
+      - name: geolocation_lat
+        data_type: bignumeric
+        description: "Latitude coordinate of the seller's location."
+
+      - name: geolocation_lng
+        data_type: bignumeric
+        description: "Longitude coordinate of the seller's location."
+
+      - name: seller_state
+        data_type: string
+        description: "State where the seller is located."
+
+  - name: dim_marketing_funnel
+    description: "Dimensional table capturing marketing funnel data for potential sellers."
+    columns:
+      - name: mql_id
+        data_type: string
+        description: "Unique identifier for the Marketing Qualified Lead (MQL)."
+        tests:
+          - not_null
+          - unique
+
+      - name: seller_id
+        data_type: string
+        description: "Unique identifier for the seller who progressed through the marketing funnel."
+        tests:
+          - not_null
+          - unique
+
+      - name: first_contact_date
+        data_type: timestamp
+        description: "Date when the seller was first contacted as part of the marketing funnel."
+
+      - name: seller_approved_date
+        data_type: timestamp
+        description: "Date when the seller was approved to join the platform."
+
+      - name: business_segment
+        data_type: string
+        description: "Business category or segment the seller operates in."
+
+      - name: lead_type
+        data_type: string
+        description: "Type of lead (e.g., organic, paid, referral)."
+
+      - name: has_company
+        data_type: string
+        description: "Indicates whether the seller has a registered company (Yes/No)."
+
+      - name: has_gtin
+        data_type: string
+        description: "Indicates whether the seller's products have GTIN (Global Trade Item Number) codes (Yes/No)."
+
+      - name: origin
+        data_type: string
+        description: "Source of the lead (e.g., campaign, referral, direct signup)."
+
+  - name: dim_sellers_profile
+    description: "Dimensional table containing detailed profiles of approved sellers."
+    columns:
+      - name: seller_id
+        data_type: string
+        description: "Unique identifier for the seller."
+        tests:
+          - not_null
+          - unique
+
+      - name: first_contact_date
+        data_type: timestamp
+        description: "Date when the seller was first contacted by the platform."
+
+      - name: seller_approved_date
+        data_type: timestamp
+        description: "Date when the seller was approved and onboarded onto the platform."
+
+      - name: business_segment
+        data_type: string
+        description: "Category of business the seller operates in."
+
+      - name: lead_type
+        data_type: string
+        description: "Classification of how the seller was acquired as a lead."
+
+      - name: zip_code_prefix
+        data_type: int64
+        description: "Postal code prefix of the seller's business location."
+
+      - name: geolocation_lat
+        data_type: bignumeric
+        description: "Latitude coordinate of the seller's location."
+
+      - name: geolocation_lng
+        data_type: bignumeric
+        description: "Longitude coordinate of the seller's location."
+
+      - name: seller_state
+        data_type: string
+        description: "State where the seller is registered."
+
+      - name: has_company
+        data_type: string
+        description: "Indicates whether the seller has a legally registered company (Yes/No)."
+
+      - name: has_gtin
+        data_type: string
+        description: "Indicates whether the seller uses GTIN codes for their products (Yes/No)."
+
+      - name: origin
+        data_type: string
+        description: "Source channel from which the seller was acquired."
