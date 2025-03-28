@@ -9,6 +9,20 @@ sources:
       - name: olist_customers_dataset
       - name: olist_geolocation_dataset
       - name: olist_order_items_dataset
+        columns:
+          - name: seller_id
+            data_type: string
+            tests:
+              - unique
+              - not_null
+          - name: order_id
+            data_type: string
+            tests:
+              - not_null
+          - name: product_id
+            data_type: string
+            tests:
+              - not_null
       - name: olist_order_payments_dataset
       - name: olist_order_reviews_dataset
       - name: olist_orders_dataset
