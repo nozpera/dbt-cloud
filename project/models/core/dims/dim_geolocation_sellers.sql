@@ -17,5 +17,5 @@ SELECT
     gs.geolocation_lng AS geolocation_lng,
     sp.seller_state AS seller_state
 FROM sellers_profile AS sp
-INNER JOIN geolocation_seller AS gs
+LEFT JOIN geolocation_seller AS gs
 ON gs.geolocation_zip_code_prefix = sp.seller_zip_code_prefix

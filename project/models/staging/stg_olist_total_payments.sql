@@ -7,4 +7,4 @@ SELECT
     ROUND((SUM(price) + SUM(freight_value)), 2) AS total_payment
 FROM {{ source('sources', 'olist_order_items_dataset') }}
 GROUP BY 5,4,1,3
-ORDER BY 6 DESC
+ORDER BY 2 DESC

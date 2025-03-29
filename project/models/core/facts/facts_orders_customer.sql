@@ -22,4 +22,4 @@ SELECT
 FROM sellers_orders AS so
 INNER JOIN {{ source('sources', 'olist_orders_dataset') }} AS ood
 ON ood.order_id = so.order_id
-ORDER BY 8 DESC
+ORDER BY 4 DESC

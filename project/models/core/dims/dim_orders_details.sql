@@ -13,7 +13,7 @@ SELECT
     otp.product_id,
     ood.customer_id,
     otp.order_id,
-    pm.product_category_name_english,
+    pm.product_category_name_english AS product_category,
     otp.total_order_items,
     ood.order_status,
     ood.order_delivered_carrier_date,

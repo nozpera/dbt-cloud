@@ -20,15 +20,15 @@ SELECT
     mf.seller_id,
     mf.first_contact_date,
     mf.seller_approved_date,
-    mf.business_segment,
-    mf.lead_type,
+    {{ format_product_name('business_segment') }} AS business_segment,
+    {{ format_product_name('lead_type') }} AS lead_type,
     gs.zip_code_prefix,
     gs.geolocation_lat,
     gs.geolocation_lng,
     gs.seller_state,
     mf.has_company,
     mf.has_gtin,
-    mf.origin
+    {{ format_product_name('origin') }} AS origin
 FROM marketing_funnel AS mf
-INNER JOIN geolocation_seller AS gs
+LEFT JOIN geolocation_seller AS gs
 ON gs.seller_id = mf.seller_id
